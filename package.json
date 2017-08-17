@@ -8,7 +8,7 @@
     "extend": "^3.0.0"
   },
   "deprecated": false,
-  "description": "Cloud Storage Client Library for Node.js",
+  "description": "Container Builder Client Library for Node.js",
   "devDependencies": {
     "mocha": "^3.0.1",
     "request": "^2.70.0"
@@ -21,10 +21,10 @@
   "name": "gcp-container-builder",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/googlecloudplatform/google-cloud-node.git"
+    "url": "git+https://github.com/mhr3/gcp-container-builder-node.git"
   },
   "scripts": {
     "test": "mocha test/*.js"
   },
-  "version": "1.0.0"
+  "version": "0.1.0"
 }
