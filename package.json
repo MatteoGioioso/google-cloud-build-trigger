@@ -1,0 +1,30 @@
+{
+  "author": {
+    "name": "Michal Hruby"
+  },
+  "dependencies": {
+    "@google-cloud/common": "^0.13.0",
+    "async": "^2.0.1",
+    "extend": "^3.0.0"
+  },
+  "deprecated": false,
+  "description": "Cloud Storage Client Library for Node.js",
+  "devDependencies": {
+    "mocha": "^3.0.1",
+    "request": "^2.70.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "license": "Apache-2.0",
+  "main": "./index.js",
+  "name": "gcp-container-builder",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/googlecloudplatform/google-cloud-node.git"
+  },
+  "scripts": {
+    "test": "mocha test/*.js"
+  },
+  "version": "1.0.0"
+}
