@@ -16,9 +16,9 @@
 
 'use strict';
 
-var common = require('@google-cloud/common');
-var extend = require('extend');
-var util = require('util');
+const common = require('@google-cloud/common');
+const extend = require('extend');
+const util = require('util');
 
 function Builder(options) {
   if (!(this instanceof Builder)) {
@@ -26,7 +26,7 @@ function Builder(options) {
     return new Builder(options);
   }
 
-  var config = {
+  const config = {
     baseUrl: 'https://cloudbuild.googleapis.com/v1',
     scopes: [
       'https://www.googleapis.com/auth/cloud-platform'
@@ -40,7 +40,7 @@ function Builder(options) {
 util.inherits(Builder, common.Service);
 
 Builder.prototype.createBuild = function(build, callback) {
-  var self = this;
+  const self = this;
 
   if (!build && build instanceof Function) {
     throw new Error('A build is required to submit it.');
@@ -50,7 +50,7 @@ Builder.prototype.createBuild = function(build, callback) {
     throw new Error('Build must contain build steps.');
   }
 
-  var body = extend({}, build);
+  const body = extend({}, build);
 
   this.request({
     method: 'POST',
@@ -67,7 +67,7 @@ Builder.prototype.createBuild = function(build, callback) {
 };
 
 Builder.prototype.getBuilds = function(query, callback) {
-  var self = this;
+  const self = this;
 
   if (!callback) {
     callback = query;
@@ -82,9 +82,9 @@ Builder.prototype.getBuilds = function(query, callback) {
       return;
     }
 
-    var builds = resp.builds;
+    const builds = resp.builds;
 
-    var nextQuery = null;
+    const nextQuery = null;
     if (resp.nextPageToken) {
       nextQuery = extend({}, query, { pageToken: resp.nextPageToken });
     }
