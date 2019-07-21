@@ -37,23 +37,23 @@ function Builder(options) {
 
 util.inherits(Builder, common.Service);
 
-Builder.prototype.createBuild = function(build, callback) {
+Builder.prototype.runTrigger = function(options, callback) {
   const self = this;
 
-  if (!build && build instanceof Function) {
-    throw new Error("A build is required to submit it.");
+  if (!options) {
+    throw new Error('Missing options object');
   }
 
-  if (!build.steps) {
-    throw new Error("Build must contain build steps.");
+  if (!options.triggerId) {
+    throw new Error('You must contain a triggerId');
   }
 
-  const body = extend({}, build);
+  const body = extend({}, options.requestBody);
 
   this.request(
     {
       method: "POST",
-      uri: "/builds",
+      uri: `/triggers/${options.triggerId}:run`,
       json: body
     },
     function(err, resp) {
@@ -63,36 +63,6 @@ Builder.prototype.createBuild = function(build, callback) {
       }
 
       callback(null, resp);
-    }
-  );
-};
-
-Builder.prototype.getBuilds = function(query, callback) {
-  const self = this;
-
-  if (!callback) {
-    callback = query;
-    query = {};
-  }
-
-  this.request(
-    {
-      uri: "/builds"
-    },
-    function(err, resp) {
-      if (err) {
-        callback(err, null, null, resp);
-        return;
-      }
-
-      const builds = resp.builds;
-
-      const nextQuery = null;
-      if (resp.nextPageToken) {
-        nextQuery = extend({}, query, { pageToken: resp.nextPageToken });
-      }
-
-      callback(null, builds, nextQuery, resp);
     }
   );
 };
