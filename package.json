@@ -10,7 +10,7 @@
   "deprecated": false,
   "description": "Container Builder Client Library for Node.js",
   "devDependencies": {
-    "mocha": "^3.0.1",
+    "mocha": "^6.2.0",
     "request": "^2.70.0"
   },
   "engines": {
