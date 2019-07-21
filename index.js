@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-'use strict';
+"use strict";
 
-const common = require('@google-cloud/common');
-const extend = require('extend');
-const util = require('util');
+const common = require("@google-cloud/common");
+const extend = require("extend");
+const util = require("util");
 
 function Builder(options) {
   if (!(this instanceof Builder)) {
@@ -27,11 +27,9 @@ function Builder(options) {
   }
 
   const config = {
-    baseUrl: 'https://cloudbuild.googleapis.com/v1',
-    scopes: [
-      'https://www.googleapis.com/auth/cloud-platform'
-    ],
-    packageJson: require('./package.json')
+    baseUrl: "https://cloudbuild.googleapis.com/v1",
+    scopes: ["https://www.googleapis.com/auth/cloud-platform"],
+    packageJson: require("./package.json")
   };
 
   common.Service.call(this, config, options);
@@ -43,27 +41,30 @@ Builder.prototype.createBuild = function(build, callback) {
   const self = this;
 
   if (!build && build instanceof Function) {
-    throw new Error('A build is required to submit it.');
+    throw new Error("A build is required to submit it.");
   }
 
   if (!build.steps) {
-    throw new Error('Build must contain build steps.');
+    throw new Error("Build must contain build steps.");
   }
 
   const body = extend({}, build);
 
-  this.request({
-    method: 'POST',
-    uri: '/builds',
-    json: body
-  }, function(err, resp) {
-    if (err) {
-      callback(err, resp);
-      return;
-    }
+  this.request(
+    {
+      method: "POST",
+      uri: "/builds",
+      json: body
+    },
+    function(err, resp) {
+      if (err) {
+        callback(err, resp);
+        return;
+      }
 
-    callback(null, resp);
-  });
+      callback(null, resp);
+    }
+  );
 };
 
 Builder.prototype.getBuilds = function(query, callback) {
@@ -74,30 +75,33 @@ Builder.prototype.getBuilds = function(query, callback) {
     query = {};
   }
 
-  this.request({
-    uri: '/builds'
-  }, function(err, resp) {
-    if (err) {
-      callback(err, null, null, resp);
-      return;
+  this.request(
+    {
+      uri: "/builds"
+    },
+    function(err, resp) {
+      if (err) {
+        callback(err, null, null, resp);
+        return;
+      }
+
+      const builds = resp.builds;
+
+      const nextQuery = null;
+      if (resp.nextPageToken) {
+        nextQuery = extend({}, query, { pageToken: resp.nextPageToken });
+      }
+
+      callback(null, builds, nextQuery, resp);
     }
-
-    const builds = resp.builds;
-
-    const nextQuery = null;
-    if (resp.nextPageToken) {
-      nextQuery = extend({}, query, { pageToken: resp.nextPageToken });
-    }
-
-    callback(null, builds, nextQuery, resp);
-  });
+  );
 };
 
 /*! Developer Documentation
  *
  * These methods can be auto-paginated.
  */
-common.paginator.extend(Builder, 'getBuilds');
+common.paginator.extend(Builder, "getBuilds");
 
 /*! Developer Documentation
  *
@@ -105,7 +109,7 @@ common.paginator.extend(Builder, 'getBuilds');
  * that a callback is omitted.
  */
 common.util.promisifyAll(Builder, {
-  exclude: ['bucket']
+  exclude: ["bucket"]
 });
 
 module.exports = Builder;
