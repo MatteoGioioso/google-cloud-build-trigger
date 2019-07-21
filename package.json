@@ -1,6 +1,6 @@
 {
   "author": {
-    "name": "Michal Hruby"
+    "name": "Matteo Gioioso"
   },
   "dependencies": {
     "@google-cloud/common": "^0.13.0",
@@ -8,17 +8,17 @@
     "extend": "^3.0.0"
   },
   "deprecated": false,
-  "description": "Container Builder Client Library for Node.js",
+  "description": "Custom client for cloud build webhook",
   "devDependencies": {
     "mocha": "^6.2.0",
     "request": "^2.70.0"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=8.0.0"
   },
   "license": "Apache-2.0",
   "main": "./index.js",
-  "name": "gcp-container-builder",
+  "name": "cloud-build-webhook",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mhr3/gcp-container-builder-node.git"
