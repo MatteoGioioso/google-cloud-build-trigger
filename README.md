@@ -1,14 +1,26 @@
-# Node.js Client for Google Container Builder
-> Node.js client for [Google Container Builder](https://cloud.google.com/container-builder/).
+# Node.js Client for triggering Cloud build
 
-This is just a temporary node client for Container Builder while the [official Google client](https://github.com/GoogleCloudPlatform/google-cloud-node) doesn't have support for it.
+```javascript
+//Path to your service account file
+const config = { keyFilename: "./path/to/service-account.json" };
+const builder = require("./index")(config);
 
-The semantics are the same as with other GCP clients:
+//You can get the triggerId by navigating to cloud build from the google cloud platform console
+//click on the triggers list and click on the trigger that you want to run,
+//the url of the page should look something like that:
+//https://console.cloud.google.com/cloud-build/triggers/<trigger_id>?project=<project_id>
+//You can grab the triggerId from there
+const options = {
+  requestBody: { branchName: "master" },
+  triggerId: "your-trigger-id"
+};
+
+builder.runTrigger(options, function(err, resp) {
+  if (err) {
+    console.log(err)
+  }
+
+  console.log(resp)
+});
+
 ```
-var config = { keyFilename: '/path/to/keyfile.json' };
-var builder = require('gcp-container-builder')(config);
-
-builder.getBuilds((err, builds) => { /* process builds */ });
-```
-
-Currently only `getBuilds` and `createBuild` methods are implemented.
